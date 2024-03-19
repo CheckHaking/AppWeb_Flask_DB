@@ -1,0 +1,11 @@
+Stack tecnologico
+
+Python 3
+Pycharm Community IDE
+Flask Framework web para Python
+SQLite. Base de datos SQL
+SQLAlchemy. modulo de python ORM para trabajar con objetos y no con tablas
+GoogleFonts. fuentes
+Bootstrap. componentes graficos
+uiGradients generador de fondos degradados 
+Jinja. Motor de renderizado de paginas web
