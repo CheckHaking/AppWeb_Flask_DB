@@ -21,49 +21,66 @@
 
         <h1 class="titulo display-4 text-center mt-4" >Task Manager</h1>
 
-        <div class="row">
-            <div class="col-md-4 offset-md-4 my-auto"> <!-- Este div ocupara 4 columnas del espacio (centrado) -->
-                <div class="card"> <!-- Creacion del objeto card -->
 
+        <div class="row text-center">
+            <div class="col-md-9 offset-md-1 my-auto ">
+                <div class="card" style="margin-top: 20px">
                     <div class="card-header">
-
                         <form action="/crear-tarea" method="post">
-
                             <div class="form-group">
                                 <input type="text" name='contenido_tarea' placeholder="Tarea" class="form-control" autofocus>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">
                                 Guardar
                             </button>
-
                         </form>
-
                     </div>
+                </div>
+            </div>
 
-                    <div class="card-body">
-                        <ul class="list-group">
-                            {%for task in task_list%}
-                            <li class="list-group-item">
-                                {{task.contenido}}
-                                <a href="/task-done/{{task.id}}" style="text-decoration:none" class="btn btn-success btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
-                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-                                    </svg>
-                                </a>
+        </div>
 
-                                <a href="/delete-task/{{task.id}}" style="text-decoration:none" class="btn btn-danger btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                    </svg>
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
 
+        <div class="row">
+            <div class="col-md-4 offset-md-1 my-auto ">
+                {%if task_list%}
+                <h3 class=" display-5 text-center mt-4" >{{progress}}%</h3>
+
+                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: {{progress}}%"></div>
                 </div>
 
+                <h3 class=" display-5 text-center mt-4" >Task Completed</h3>
+
+                {%endif%}
+            </div>
+
+            <div class="card-body">
+                {%if task_list%}
+                <ul class="list-group">
+                    {%for task in task_list%}
+                    <li class="list-group-item">
+                        <span class="{%if task.done == true %} tarea_hecha {%endif%}">
+                            {{task.contenido}}
+                        </span>
+                        <div style="float: right;">
+                            <a href="/task-done/{{task.id}}" style="text-decoration:none" class="btn btn-success btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                </svg>
+                            </a>
+
+                            <a href="/delete-task/{{task.id}}" style="text-decoration:none" class="btn btn-danger btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </li>
+                    {%endfor%}
+                </ul>
+                {%endif%}
             </div>
         </div>
 
